@@ -66,3 +66,37 @@ DROP USER 'username'@'host';
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin123'; 
 GRANT ALL ON *.* TO 'admin'@'localhost';
 
+# monodevelop连接MySQL数据库：
+1.创建一个命令行工程，
+2.创建项目->"添加Nuget包"->在弹出的窗口的搜索框中输入MySQL，选择MySQL connecttor->点击"添加包"
+3.创建项目->"添加Nuget包"->在弹出的窗口的搜索框中输入MySQL，选择MySQL.Data->点击"添加包"
+ program.cs 实例代码：
+ using System;
+using System.Data;
+using System.Data.OleDb;
+using MySql.Data.MySqlClient;
+using MySql.Data.Types;
+namespace Consoleapp1
+{
+    class MainClass
+    {
+        public static void Main(string[] args)
+        {
+            MySqlConnection conn = new MySqlConnection();
+            MySqlCommand cmd = new MySqlCommand();
+            MySqlDataAdapter mda = new MySqlDataAdapter();
+            DataSet ds = new DataSet();
+            conn.ConnectionString = "server=localhost;user id=admin;password=admin123;database=kenny";
+            conn.Open();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from user";
+            cmd.Connection = conn;
+            mda.SelectCommand = cmd;
+            ds.Clear();
+            mda.Fill(ds);
+            Console.WriteLine("total record:{0}",ds.Tables[0].Rows.Count);
+            conn.Close();
+        }
+    }
+}
+
