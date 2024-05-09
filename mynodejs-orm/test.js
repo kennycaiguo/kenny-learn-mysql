@@ -109,6 +109,12 @@ stuModel.sql('select avg(height) from students where gender=1',(err,res)=>{
         console.log(res);
 })
 
+//分页查询
+stuModel.limit({where:'age<18',number:1,count:3},(err,res)=>{
+            console.log(res.length);
+            console.log(res);
+})
+
 //更新数据，update方法有3个参数，1条件，2新数据，3回调
 //将id为1的学生改名为Marco
 // stuModel.update('id=1',{name:'Marco'},(err,res)=>{
