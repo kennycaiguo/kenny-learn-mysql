@@ -11,15 +11,7 @@ let orm_config = {
 
 ormTool.connect(orm_config)
 
-let stuModel = ormTool.model('students',{
-    id:Number,
-    name:String,
-    age:Number,
-    height:Number,
-    gender:String,
-    cls_id:Number,
-    is_deleted:Number
-})
+let stuModel = ormTool.model('students') //第二个参数可省
 
 // console.log(stuModel);
 //新增 ok
