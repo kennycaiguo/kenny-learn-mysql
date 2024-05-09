@@ -22,7 +22,6 @@ let stuModel = ormTool.model('students') //第二个参数可省
 //     height:167.9,
 //     gender:1,
 //     cls_id:1,
-//     is_deleted:0
 // },(err,result)=>{
 //     if(err){
 //         console.log(err);
@@ -32,10 +31,10 @@ let stuModel = ormTool.model('students') //第二个参数可省
 // })
 //新增多条数据
 let stus = [
-    {id:0,name:"Jerrylee",age:17,height:167.9,gender:1,cls_id:1,is_deleted:0},
-    {id:0,name:"Tom",age:16,height:171.9,gender:1,cls_id:2,is_deleted:0},
-    {id:0,name:"Goofy",age:17,height:175.9,gender:1,cls_id:1,is_deleted:0},
-    {id:0,name:"Twitter",age:15,height:160.9,gender:2,cls_id:2,is_deleted:0},
+    {id:0,name:"Jerrylee",age:17,height:167.9,gender:1,cls_id:1},
+    {id:0,name:"Tom",age:16,height:171.9,gender:1,cls_id:2},
+    {id:0,name:"Goofy",age:17,height:175.9,gender:1,cls_id:1},
+    {id:0,name:"Twitter",age:15,height:160.9,gender:2,cls_id:2},
 ]
 
 stuModel.insert(stus,(err,ret)=>{
