@@ -63,6 +63,61 @@ Model.prototype.find = function (options, callback) {
     }
 
 };
+//find方法扩展可以这么调用：stuModel.findExtended({where:'age<18',arr:["name","age",'gender']},(err,data)=>{...})
+Model.prototype.findExtended = function (options, callback) {
+    if (!isConnect) {
+        this.connect(err => {
+            isConnect = true;
+            var str = '';
+            if (!callback) {
+                str = `select * from ${this.name}`;
+                callback = options;
+            } else if (options.where && options.arr) {
+                str = `select ${options.arr.join()} from ${this.name} where ${options.where}`;
+            } else if (options.constructor == Array ) {
+                str = `select ${options.join()} from ${this.name}`;
+            }
+            else {
+                str = `select * from ${this.name} where ${options}`;
+            };
+            //console.log(str);
+            connection.query(str, (error, results, fields) => {
+                // console.log(error.sqlState);
+                if (error && error.sqlState == '42S02') {
+                    callback('表格不存在', []);
+                } else {
+                    callback(error, results, fields);
+                };
+
+            });
+            return this;
+        })
+    } else {
+        var str = '';
+        if (!callback) {
+            str = `select * from ${this.name}`;
+            callback = options;
+        } else if (options.constructor == Array) {
+            str = `select ${options.join()} from ${this.name}`;
+        } else {
+            str = `select * from ${this.name} where ${options}`;
+        };
+        //console.log(str);
+        connection.query(str, (error, results, fields) => {
+            // console.log(error.sqlState);
+
+            if (error && error.sqlState == '42S02') {
+                callback('表格不存在', []);
+            } else {
+                callback(error, results, fields);
+            };
+        });
+        return this;
+    }
+
+};
+
+
 
 /**
 * @description: 分页查询
