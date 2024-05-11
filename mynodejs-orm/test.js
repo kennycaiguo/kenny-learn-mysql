@@ -110,6 +110,14 @@ stuModel.sql('select avg(height) from students where gender=1',(err,res)=>{
         console.log(res.length);
         console.log(res);
 })
+//扩展查询，添加是一个对象
+stuModel.findExtended({where:'age<18',arr:["name","age",'gender']},(err,data)=>{
+    if(err){
+        console.log(err);
+        return;
+    }
+    console.log(data);
+})
 
 //分页查询
 stuModel.limit({where:'age<18',number:1,count:3},(err,res)=>{
